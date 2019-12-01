@@ -43,6 +43,13 @@ class Route extends Bootstrap {
 			'controller' => 'AuthController',
 			'action' => 'sair'
 		);
+
+		$routes['comentario'] = array(
+			'route' => '/comentario',
+			'controller' => 'AppController',
+			'action' => 'comentario'
+		);
+
 		$this->setRoutes($routes);
 	}
 
