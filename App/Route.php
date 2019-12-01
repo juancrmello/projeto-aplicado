@@ -50,6 +50,12 @@ class Route extends Bootstrap {
 			'action' => 'comentario'
 		);
 
+		$routes['quem_favoritar'] = array(
+			'route' => '/quem_favoritar',
+			'controller' => 'AppController',
+			'action' => 'quemFavoritar'
+		);
+
 		$this->setRoutes($routes);
 	}
 
