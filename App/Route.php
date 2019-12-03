@@ -56,6 +56,12 @@ class Route extends Bootstrap {
 			'action' => 'quemFavoritar'
 		);
 
+		$routes['acao'] = array(
+			'route' => '/acao',
+			'controller' => 'AppController',
+			'action' => 'acao'
+		);
+
 		$this->setRoutes($routes);
 	}
 

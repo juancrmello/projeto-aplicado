@@ -77,23 +77,38 @@
 
         public function getAll(){
 
-            $query = "select id, nome, email from usuarios where nome like :nome";
+            $query = "select u.id, u.nome, u.email, (select count(*) from favoritos as f where f.id_usuario = :id_usuario and f.id_usuario_favorito = u.id) as favorito_sn from usuarios as u where u.nome like :nome and u.id != :id_usuario";
+
             $stmt = $this->db->prepare($query);
             $stmt->bindValue(':nome', '%'.$this->__get('nome').'%');
+            $stmt->bindValue(':id_usuario', $this->__get('id'));
             $stmt->execute();
 
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
+        public function favoritarUsuario($id_usuario_favorito){
+            
+            $query = "insert into favoritos(id_usuario, id_usuario_favorito)values(:id_usuario, :id_usuario_favorito)" ;
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':id_usuario', $this->__get('id'));
+            $stmt->bindValue(':id_usuario_favorito', $id_usuario_favorito);
+            $stmt->execute();
+
+            return true;
+        }
+
+        public function deixarFavoritoUsuario($id_usuario_favorito){
+            $query = "delete from favoritos where id_usuario = :id_usuario and id_usuario_favorito = :id_usuario_favorito";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':id_usuario', $this->__get('id'));
+            $stmt->bindValue(':id_usuario_favorito', $id_usuario_favorito);
+            $stmt->execute();
+
+            return true;
+        }
     }
-
-
-
-
-
-
-
-
-
 
 ?>
